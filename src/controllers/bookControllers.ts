@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { pool } from '../db/index';
-import { Book } from '../models/book.model';
+import { Book } from '../models/bookModel';
 
 export const getBooks = async (_: Request, res: Response) => {
   const result = await pool.query('SELECT * FROM books');
