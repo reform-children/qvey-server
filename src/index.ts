@@ -1,6 +1,6 @@
 import express from 'express'
 
-import bookRoutes from './routes/book.routes';
+import bookRoutes from './routes/bookRoutes';
 
 import dotenv from 'dotenv'
 import noticeRouter from './routes/noticeRouter'

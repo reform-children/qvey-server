@@ -1,4 +1,4 @@
-import { pool } from '../db/index';
+import { pool } from '../db';
 
 export interface Notice {
   id: number;
