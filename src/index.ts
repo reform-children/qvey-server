@@ -1,13 +1,15 @@
 import express from 'express'
+
+dotenv.config()
+import bookRoutes from './routes/bookRoutes';
+
 import dotenv from 'dotenv'
 import noticeRouter from './routes/noticeRouter'
 
 dotenv.config()
 const app = express()
-app.use(express.json())
 
-const PORT = 3000
-app.use('/api/v1/notice', noticeRouter)
+const PORT = 5000
 
 app.get("/", (req, res) => {
     res.send({message: "hello world"})
