@@ -1,8 +1,10 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import noticeRouter from './routes/noticeRouter'
+import noticeRouter from './modules/notice/routes/noticeRouter'
 import bookRoutes from './routes/bookRoutes';
 import userRouter from "./user/routes/userRoute"
+import { authRouter } from './modules/auth/routes/authRouter';
+import { verifyToken } from './modules/auth/middleware/authMiddleware';
 
 dotenv.config()
 const app = express()
@@ -12,9 +14,10 @@ app.use(express.json())
 const PORT = 3000
 
 app.use('/api/v1/notice', noticeRouter)
-app.use('/api/v1/book', bookRoutes);
-
+app.use('/api/v1/book', bookRoutes)
 app.use("/api/v1/user", userRouter)
+// Auth API
+app.use('/api/v1/auth', authRouter);
 
 app.get("/", (req, res) => {
     res.send({message: "hello world"})
