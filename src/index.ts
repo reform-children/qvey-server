@@ -1,10 +1,10 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import noticeRouter from './modules/notice/routes/noticeRouter'
+import noticeRouter from './notice/routes/noticeRouter'
 import bookRoutes from './routes/bookRoutes';
 import userRouter from "./user/routes/userRoute"
-import { authRouter } from './modules/auth/routes/authRouter';
-import { verifyToken } from './modules/auth/middleware/authMiddleware';
+import { authRouter } from './auth/routes/authRouter';
+import { verifyToken } from './auth/middleware/authMiddleware';
 
 dotenv.config()
 const app = express()
