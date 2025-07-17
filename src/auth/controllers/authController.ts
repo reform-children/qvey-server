@@ -8,6 +8,8 @@ import { authenticate, createToken } from '../services/authService';
  * - RequestBody: LoginDto
  * - ResponseBody: TokenDto 또는 { error: string }
  */
+// token으로 로그인 할 이유가 없다
+// login으로 로그인
 export const login: RequestHandler<{}, TokenDto | { error: string }, LoginDto> =
   async (req, res) => {
     const { email, password } = req.body;

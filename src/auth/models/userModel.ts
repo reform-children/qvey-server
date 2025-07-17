@@ -1,6 +1,6 @@
 // src/modules/auth/models/userModel.ts
 
-import { pool } from '../../../db/index';
+import { pool } from '../../db/index';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
