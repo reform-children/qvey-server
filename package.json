@@ -3,26 +3,18 @@
   "version": "1.0.0",
   "main": "./dist/index.js",
   "scripts": {
-
-    "test":  "echo \"Error: no test specified\" && exit 1",
-
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "bulid:watch": "tsc -W",
     "start": "npm run build && node dist/index.js",
     "start:watch": "nodemon dist/index.js",
-
-    "dev":   "ts-node-dev --respawn --transpile-only src/index.ts"
-
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-
-
-
     "bcrypt": "^6.0.0",
-
     "dotenv": "^17.1.0",
     "express": "^5.1.0",
     "pg": "^8.16.3"
@@ -32,10 +24,7 @@
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.12",
     "@types/pg": "^8.15.4",
-
-
     "ts-node": "^10.9.2",
-    
     "nodemon": "^3.1.10",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"

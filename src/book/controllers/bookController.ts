@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import * as model from '../models/bookModel';
+import * as model from '../../book/models/bookModel';
 
 // 전체 도서 조회
 export const listBooks: RequestHandler = async (_req, res, next) => {
