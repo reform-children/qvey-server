@@ -1,11 +1,10 @@
 import { Request, Response } from 'express'
-import { BookListRequestDTO } from '../dto/bookDTO'
+import { BookListRequestDTO, BookListResponseDTO } from '../dto/bookDTO'
 import { getBookList } from '../service/bookService'
 
 export const getBooks = async (req: Request, res: Response) => {
-    const dto: BookListRequestDTO = req.body
-    try {
-        const books = await getBookList({})
-        res.json({ data: books, message: 'success' })
-    } catch (err) {}
+    const { title = '', description = '' } = req.query
+    const books = await getBookList({ title: title.toString(), description: description.toString() })
+    const response: BookListResponseDTO = { data: books, count: books.length }
+    res.json(response)
 }

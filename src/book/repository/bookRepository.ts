@@ -1,16 +1,36 @@
+import { Client } from 'pg'
 import { BookEntity } from '../entity/bookEntity'
-import { Book } from '../types/book'
+import { Book, BookListSearchOption } from '../types/book'
+import { getPool } from '../../db'
 
-function toBook({ book_content, book_id, book_title }: BookEntity): Book {
-    return { id: book_id, content: book_content, title: book_title }
+function toBook({ book_description, book_id, book_title, generate_time, modified_time, user_id }: BookEntity): Book {
+    return {
+        id: book_id,
+        title: book_title,
+        userId: user_id,
+        description: book_description,
+        generateTime: generate_time,
+        modifiedTime: modified_time,
+    }
 }
-export const getAllBook = async (): Promise<Book[]> => {
-    // 대충 DB Excute 가정
-    const DATA: BookEntity[] = [
-        { book_content: 'asd', book_id: 1, book_title: '123' },
-        { book_content: 'asd', book_id: 2, book_title: '123' },
-        { book_content: 'asd', book_id: 3, book_title: '123' },
-        { book_content: 'asd', book_id: 4, book_title: '123' },
-    ]
-    return Promise.resolve(DATA.map(toBook))
+export const getAllBook = async (option: BookListSearchOption): Promise<Book[]> => {
+    const { title, description } = option
+
+    let sql = `SELECT * FROM books WHERE 1 = 1`
+    const params: any[] = []
+    let index = 1
+
+    if (title) {
+        sql += ` AND book_title ILIKE $${index}` // ILIKE는 대소문자 무시
+        params.push(`%${title}%`) // %text% 이렇게 들어감
+        index++
+    }
+    if (description) {
+        sql += ` AND book_description ILIKE $${index}`
+        params.push(`%${description}%`)
+        index++
+    }
+
+    const result = await getPool().query(sql, params)
+    return result.rows.map(toBook)
 }
