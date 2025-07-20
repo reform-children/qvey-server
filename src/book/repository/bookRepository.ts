@@ -1,6 +1,5 @@
-import { Client } from 'pg'
 import { BookEntity } from '../entity/bookEntity'
-import { Book, BookListSearchOption } from '../types/book'
+import { Book, BookListSearchOption, CreateBook } from '../types/book'
 import { getPool } from '../../db'
 
 function toBook({ book_description, book_id, book_title, generate_time, modified_time, user_id }: BookEntity): Book {
@@ -31,6 +30,28 @@ export const getAllBook = async (option: BookListSearchOption): Promise<Book[]> 
         index++
     }
 
-    const result = await getPool().query(sql, params)
+    const result = await getPool().query<BookEntity>(sql, params)
     return result.rows.map(toBook)
+}
+
+export const save = async ({ description, title, userId }: CreateBook): Promise<number> => {
+    const sql = `
+        INSERT INTO books (
+            user_id, book_title, book_description
+        )
+        VALUES ($1, $2, $3)
+        RETURNING book_id
+    `
+    try {
+        const result = await getPool().query<{ book_id: number }>(sql, [userId, title, description])
+        return result.rows[0].book_id
+    } catch (err) {
+        console.error(err)
+        throw new Error('DB Internal Error')
+    }
+}
+
+export default {
+    getAllBook,
+    save,
 }
