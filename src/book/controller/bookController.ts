@@ -1,5 +1,11 @@
 import { Request, Response } from 'express'
-import { BookListRequestDTO, BookListResponseDTO, CreateBookRequestDTO, CreateBookResponseDTO } from '../dto/bookDTO'
+import {
+    BookListRequestDTO,
+    BookListResponseDTO,
+    CreateBookRequestDTO,
+    CreateBookResponseDTO,
+    DeleteBookResponseDTO,
+} from '../dto/bookDTO'
 import bookService, { getBookList } from '../service/bookService'
 
 export const getBooks = async (req: Request, res: Response) => {
@@ -19,7 +25,16 @@ export const createBook = async (req: Request, res: Response) => {
     const { title, description }: CreateBookRequestDTO = req.body
     const resultId = await bookService.createBook({ title, description, userId: DEMO_USER_ID })
     const response: CreateBookResponseDTO = {
-        id: resultId,
+        bookId: resultId,
+    }
+    res.json(response)
+}
+
+export const deleteBook = async (req: Request, res: Response) => {
+    const { bookId } = req.params
+    await bookService.deleteBook({ bookId: +bookId })
+    const response: DeleteBookResponseDTO = {
+        booId: +bookId,
     }
     res.json(response)
 }

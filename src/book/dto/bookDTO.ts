@@ -15,5 +15,9 @@ export interface CreateBookRequestDTO {
 }
 
 export interface CreateBookResponseDTO {
-    id: number
+    bookId: number
+}
+
+export interface DeleteBookResponseDTO {
+    booId: number
 }

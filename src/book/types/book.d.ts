@@ -13,3 +13,6 @@ export type BookListSearchOption = {
 }
 
 export type CreateBook = Pick<Book, 'title' | 'description' | 'userId'>
+export type DeleteBook = {
+    bookId: number
+}

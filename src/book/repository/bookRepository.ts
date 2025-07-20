@@ -1,5 +1,5 @@
 import { BookEntity } from '../entity/bookEntity'
-import { Book, BookListSearchOption, CreateBook } from '../types/book'
+import { Book, BookListSearchOption, CreateBook, DeleteBook } from '../types/book'
 import { getPool } from '../../db'
 
 function toBook({ book_description, book_id, book_title, generate_time, modified_time, user_id }: BookEntity): Book {
@@ -51,7 +51,17 @@ export const save = async ({ description, title, userId }: CreateBook): Promise<
     }
 }
 
+export const deleteById = async ({ bookId }: DeleteBook): Promise<void> => {
+    try {
+        await getPool().query(`DELETE FROM books WHERE book_id = $1`, [bookId])
+    } catch (err) {
+        console.error(err)
+        throw new Error('DB Internal Error')
+    }
+}
+
 export default {
     getAllBook,
     save,
+    deleteById,
 }
