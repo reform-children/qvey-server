@@ -1,6 +1,6 @@
 import { getPool } from '../../db'
 import { BoardEntity } from '../entity/boardEntity'
-import { Board, BoardSearchOption } from '../model/boardModel'
+import { Board, BoardSearchOption, CreateBoard } from '../model/boardModel'
 
 /**
  *
@@ -51,6 +51,30 @@ export const search = async ({ subject, content }: BoardSearchOption): Promise<B
     return result.rows.map(toBoard)
 }
 
+export const save = async ({ subject, content, userId }: CreateBoard): Promise<{ boardId: number }> => {
+    const pool = getPool()
+    const sql = `
+        INSERT INTO board
+        (
+            board_subject,
+            board_content,
+            user_id
+        )
+        VALUES
+        (
+            $1,
+            $2,
+            $3
+        )
+        RETURNING board_id
+    `
+    const result = await pool.query<{ board_id: number }>(sql, [subject, content, userId])
+    return {
+        boardId: result.rows[0].board_id,
+    }
+}
+
 export default {
     search,
+    save,
 }

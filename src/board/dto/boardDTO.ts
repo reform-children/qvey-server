@@ -24,3 +24,11 @@ export interface BoardListResponseDTO {
      */
     count: number
 }
+
+export interface CreateBoardRequestDTO extends Partial<Pick<Board, 'subject' | 'content'>> {}
+export interface CreateBoardReponseDTO {
+    /**
+     * 생성된 게시글 ID
+     */
+    boardId: number
+}

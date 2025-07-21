@@ -1,7 +1,8 @@
 import { Router } from 'express'
-import { getBoardList } from '../controller/boardController'
+import { createBoard, getBoardList } from '../controller/boardController'
 
 const router = Router()
 router.get('/', getBoardList)
+router.post('/', createBoard)
 
 export default router

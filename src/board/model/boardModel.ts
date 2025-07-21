@@ -7,4 +7,5 @@ export interface Board {
     modifiedTime: Date | null
 }
 
-export type BoardSearchOption = { subject?: string; content?: string }
+export type BoardSearchOption = Partial<Pick<Board, 'subject' | 'content'>>
+export type CreateBoard = Pick<Board, 'subject' | 'content' | 'userId'>
