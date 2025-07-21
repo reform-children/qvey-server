@@ -4,6 +4,7 @@ import noticeRouter from './notice/routes/noticeRouter'
 import userRouter from './user/routes/userRoute'
 import bookRouter from './book/router/bookRouter'
 import { authRouter } from './auth/routes/authRouter'
+import boardRouter from './board/router/boardRouter'
 import { verifyToken } from './auth/middleware/authMiddleware'
 
 dotenv.config()
@@ -19,6 +20,7 @@ app.use('/api/v1/book', bookRouter)
 app.use('/api/v1/user', userRouter)
 // Auth API
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/board', boardRouter)
 
 app.get('/', (req, res) => {
     res.send({ message: 'hello world' })
