@@ -1,8 +1,9 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import noticeRouter from './routes/noticeRouter'
-import bookRoutes from './book/routes/bookRoutes';
+import noticeRouter from './notice/routes/noticeRouter'
+import bookRoutes from './book/routes/bookRoutes'
 import userRouter from "./user/routes/userRoute"
+import questionRoutes from "./question/routes/questionRoutes"
 
 dotenv.config()
 const app = express()
@@ -13,7 +14,7 @@ const PORT = 3000
 
 app.use('/api/v1/notice', noticeRouter)
 app.use('/api/v1/book', bookRoutes);
-
+app.use("/api/v1/question", questionRoutes);
 app.use("/api/v1/user", userRouter)
 
 app.get("/", (req, res) => {
