@@ -19,5 +19,14 @@ export interface CreateBookResponseDTO {
 }
 
 export interface DeleteBookResponseDTO {
-    booId: number
+    bookId: number
+}
+
+export interface UpdateBookRequestDTO {
+    title?: string
+    description?: string
+}
+
+export interface UpdateBookResponseDTO {
+    bookId: number
 }
