@@ -1,5 +1,5 @@
-import bookRepository, { getAllBook } from '../repository/bookRepository'
-import { Book, BookListSearchOption, CreateBook, DeleteBook } from '../types/book'
+import bookRepository, { getAllBook, updateById } from '../repository/bookRepository'
+import { Book, BookListSearchOption, CreateBook, DeleteBook, UpdateBook } from '../types/book'
 
 export const getBookList = async ({ title, description }: BookListSearchOption): Promise<Book[]> => {
     const bookList = await getAllBook({ description, title })
@@ -15,8 +15,13 @@ export const deleteBook = async ({ bookId }: DeleteBook) => {
     bookRepository.deleteById({ bookId })
 }
 
+export const updateBook = async ({ bookId, title, description }: UpdateBook): Promise<void> => {
+    await updateById({ bookId, title, description })
+}
+
 export default {
     getBookList,
     createBook,
     deleteBook,
+    updateBook
 }
