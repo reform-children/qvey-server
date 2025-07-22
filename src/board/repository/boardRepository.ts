@@ -74,8 +74,20 @@ export const save = async ({ subject, content, userId }: CreateBoard): Promise<{
     }
 }
 
+export const remove = async (boardId: number): Promise<{ boardId: number }> => {
+    const pool = getPool()
+    const sql = `DELETE FROM board WHERE board_id = $1 RETURNING board_id`
+    const result = await pool.query(sql, [boardId])
+
+    return { 
+        boardId : result.rows[0].board_id,
+    }
+}
+
+
 export default {
     search,
     save,
+    remove,
 }
 
