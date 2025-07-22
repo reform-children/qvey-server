@@ -1,4 +1,4 @@
-import { Board, BoardSearchOption, CreateBoard } from '../model/boardModel'
+import { Board, BoardSearchOption, CreateBoard, DeleteBoard } from '../model/boardModel'
 import boardRepository from '../repository/boardRepository'
 
 export const getBoardList = async ({ subject, content }: BoardSearchOption): Promise<Board[]> => {
@@ -10,7 +10,12 @@ export const createBoard = async ({ content, subject, userId }: CreateBoard): Pr
     return id
 }
 
+export const deleteBoard = async ({ id }: DeleteBoard): Promise<{ boardId: number }> => {
+    return await boardRepository.remove(id)
+}
+
 export default {
     getBoardList,
     createBoard,
+    deleteBoard,
 }

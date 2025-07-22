@@ -32,3 +32,7 @@ export interface CreateBoardReponseDTO {
      */
     boardId: number
 }
+
+export interface DeleteBoardResponseDTO {
+    boardId: number
+}

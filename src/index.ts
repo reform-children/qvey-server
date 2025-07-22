@@ -6,6 +6,7 @@ import bookRouter from './book/router/bookRouter'
 import { authRouter } from './auth/routes/authRouter'
 import boardRouter from './board/router/boardRouter'
 import { verifyToken } from './auth/middleware/authMiddleware'
+import questionRoutes from "./question/routes/questionRoutes"
 
 dotenv.config()
 const app = express()
@@ -17,6 +18,7 @@ const PORT = 3000
 
 app.use('/api/v1/notice', noticeRouter)
 app.use('/api/v1/book', bookRouter)
+app.use("/api/v1/question", questionRoutes);
 app.use('/api/v1/user', userRouter)
 // Auth API
 app.use('/api/v1/auth', authRouter)

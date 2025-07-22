@@ -4,6 +4,7 @@ import {
     BoardListResponseDTO,
     CreateBoardReponseDTO,
     CreateBoardRequestDTO,
+    DeleteBoardResponseDTO
 } from '../dto/boardDTO'
 import boardService from '../service/boardService'
 
@@ -28,5 +29,16 @@ export const createBoard = async (req: Request, res: Response) => {
 
     const { boardId } = await boardService.createBoard({ content, subject, userId: DEV_USER })
     const _res: CreateBoardReponseDTO = { boardId }
+    res.send(_res)
+}
+
+// 자유게시판 삭제
+
+export const deleteBoard = async (req: Request, res: Response) => {
+    const id = Number(req.params.id) 
+    const { boardId } = await boardService.deleteBoard({ id })
+    if (!boardId) throw new Error('boardId Empty')
+
+    const _res: DeleteBoardResponseDTO = { boardId }
     res.send(_res)
 }
