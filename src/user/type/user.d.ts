@@ -6,29 +6,7 @@ import { RegistUserRequestDTO } from '../dto/userDTO'
  * - `O` 기타
  */
 export type GenderType = 'M' | 'F' | 'O'
-/**
- * User 상태
- * - `N` : 일반
- * - `S` : 정지
- */
-export type UserState = 'N' | 'S'
 
-export interface User {
-    uuid: string
-    email: string
-    name: string
-    password: string
-    profileImage: string | null
-    birth: Date
-    gender: GenderType
-    address: string
-    addressDetail: string | null
-    tell: string | null
-    generateTime: Date
-    modifiedTime: Date | null
-    status: UserState
-    passwordUpdateTime: string
-}
 // 회원가입 시 필수 입력 필드들
 type RequiredUserFields = Pick<User, 'email' | 'name' | 'password' | 'birth' | 'gender' | 'address'>
 

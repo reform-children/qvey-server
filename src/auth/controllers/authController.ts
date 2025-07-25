@@ -1,28 +1,18 @@
-import { Request, Response, NextFunction } from 'express';
-import * as authService from '../services/authService';
+import { Request, Response } from 'express'
+import { LoginRequestDTO, LoginResponseDTO } from '../dto/loginDTO'
+import authService from '../services/authService'
 
 /**
  * POST /api/v1/auth/login
  * - RequestBody: LoginDto
  * - ResponseBody: TokenDto 또는 { error: string }
  */
-export async function login(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  try {
-    const { email, password } = req.body;
+export async function login(req: Request, res: Response) {
+    const { email, password }: LoginRequestDTO = req.body
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ error: '이메일과 비밀번호를 모두 입력하세요.' });
+        throw new Error('이메일과 비밀번호를 모두 입력하세요.')
     }
-
-    const user = await authService.authenticate(email, password);
-    const token = authService.createToken(user);
-    res.json({ token });
-  } catch (err: any) {
-    next(err);
-  }
+    const { accessToken } = await authService.authenticate(email, password)
+    const response: LoginResponseDTO = { accessToken }
+    res.json(response)
 }

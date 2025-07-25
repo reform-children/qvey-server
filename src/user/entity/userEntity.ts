@@ -1,4 +1,5 @@
-import { GenderType, UserState } from '../type/user'
+import { UserStatus } from '../model/userModel'
+import { GenderType } from '../type/user'
 
 export interface UserEntity {
     /**
@@ -48,7 +49,7 @@ export interface UserEntity {
     /**
      * 상태
      */
-    user_status: UserState
+    user_status: UserStatus
     /**
      * 마지막 비밀번호 변경
      */
