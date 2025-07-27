@@ -2,7 +2,7 @@
  * 유저 기능 서비스
  */
 
-import { RegisterUser } from '../model/userModel'
+import { RegisterUser, User } from '../model/userModel'
 import userRepository from '../repository/userRepository'
 import { passwordToHash, validEmail } from '../utils/utils'
 
@@ -25,6 +25,13 @@ export const registUser = async (data: RegisterUser): Promise<void> => {
     await userRepository.save({ ...data, password: hashedPassword })
 }
 
+export const getUserByEmail = async (email: string): Promise<User> => {
+    const user = await userRepository.findUserByEmail(email)
+    if (!user) throw new Error('user not found')
+    return user
+}
+
 export default {
     registUser,
+    getUserByEmail,
 }

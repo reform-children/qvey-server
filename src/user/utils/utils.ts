@@ -11,6 +11,11 @@ export const passwordToHash = async (password: string): Promise<string> => {
     return bcrypt.hash(password, SALT_ROUND)
 }
 
+/** 비밀번호와 해시값 비교 */
+export const comparePassword = async (password: string, hash: string): Promise<boolean> => {
+    return bcrypt.compare(password, hash)
+}
+
 export const validEmail = async (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
