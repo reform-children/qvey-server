@@ -3,7 +3,7 @@ import express from 'express'
 import noticeRouter from './notice/routes/noticeRouter'
 import userRouter from './user/routes/userRoute'
 import bookRouter from './book/router/bookRouter'
-import { authRouter } from './auth/routes/authRouter'
+import authRouter from './auth/routes/authRouter'
 import boardRouter from './board/router/boardRouter'
 import { verifyToken } from './auth/middleware/authMiddleware'
 import questionRoutes from "./question/routes/questionRoutes"
