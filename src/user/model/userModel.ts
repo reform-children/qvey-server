@@ -1,6 +1,5 @@
 import { pool } from '../../db'
 import bcrypt from 'bcrypt' // bcrypt 해시 비교
-import { GenderType } from '../type/user'
 
 /** 개발 모드(true)일 때는 평문 비교, 아닐 땐 bcrypt.compare */
 const IS_DEV = process.env.DEV_MODE === 'true'
@@ -97,7 +96,33 @@ export interface User {
     /**
      * 전화번호
      */
-    tell: string
+    tell: string | null
+}
+
+export type RegisterUser = Pick<
+    User,
+    'address' | 'addressDetail' | 'birth' | 'email' | 'gender' | 'name' | 'password' | 'tell'
+>
+
+/**
+ * - `M` 남자
+ * - `F` 여자
+ * - `O` 기타
+ */
+export type GenderType = 'M' | 'F' | 'O'
+export const GENDER: Record<'MALE' | 'FEMALE' | 'OTHER', GenderType> = {
+    /**
+     * 남자
+     */
+    MALE: 'M',
+    /**
+     * 여자
+     */
+    FEMALE: 'F',
+    /**
+     * 기타
+     */
+    OTHER: 'O',
 }
 
 /**

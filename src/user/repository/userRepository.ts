@@ -3,9 +3,9 @@
  */
 
 import { getPool, pool } from '../../db'
-import { RegisterUserResponseDTO, RegistUserRequestDTO } from '../dto/userDTO'
 import { UserEntity } from '../entity/userEntity'
-import { User } from '../model/userModel'
+import { RegisterUser, User } from '../model/userModel'
+import { registUser } from '../service/userService'
 
 function toUser(entity: UserEntity): User {
     return {
@@ -35,15 +35,24 @@ export const getUserEmailByEmail = async (email: string) => {
 }
 
 /** 사용자 정보를 삽입한다(회원가입) */
-// export const insertUser = async (reqData: RegistUserRequestDTO): Promise<RegisterUserResponseDTO> => {
-//     const { name, email, password, phoneNumber } = reqData
-//     const query = `INSERT INTO users (name, email, password, phoneNumber)
-//                     VALUES ($1, $2, $3, $4)
-//                     RETURNING id, email, name, created_at`
-
-//     const result = await pool.query(query, [name, email, password, phoneNumber ?? null])
-//     return result.rows[0]
-// }
+export const save = async (data: RegisterUser): Promise<void> => {
+    const { name, email, password, tell, address, addressDetail, birth, gender } = data
+    const pool = getPool()
+    const query = `
+    INSERT INTO users (
+        user_email,
+        user_name,
+        user_password,
+        user_birth,
+        user_gender,
+        user_address,
+        user_address_detail,
+        user_status,
+        user_tell
+        ) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9 );
+    `
+    await pool.query(query, [email, name, password, birth, gender, address, addressDetail, 'N', tell])
+}
 
 export const findUserByEmail = async (email: string): Promise<User | undefined> => {
     const query = `
@@ -71,4 +80,4 @@ export const findUserByEmail = async (email: string): Promise<User | undefined> 
     return result.rows[0] ? toUser(result.rows[0]) : undefined
 }
 
-export default { getUserEmailByEmail, findUserByEmail }
+export default { getUserEmailByEmail, findUserByEmail, save }

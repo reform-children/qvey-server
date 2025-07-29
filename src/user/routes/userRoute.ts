@@ -2,13 +2,13 @@
  * 유저 기능 라우터
  */
 
-import { Router } from 'express';
+import { Router } from 'express'
 
-import { signupUser } from "../controller/userController"
+import { register } from '../controller/userController'
 
-const router = Router();
+const router = Router()
 
 /** 회원가입 컨트롤러 */
-router.post("/signup", signupUser)
+router.post('/register', register)
 
-export default router;
+export default router

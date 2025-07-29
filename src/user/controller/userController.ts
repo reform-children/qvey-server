@@ -3,15 +3,15 @@
  */
 
 import { Request, Response } from 'express'
-import { registUser } from '../service/userService'
-import { RegistUserRequestDTO } from '../dto/userDTO'
-import { GenderType, RegistUser } from '../type/user'
+import { RegisterUserRequestDTO, RegisterUserResponseDTO } from '../dto/userDTO'
+import { GenderType, RegisterUser } from '../model/userModel'
+import userService from '../service/userService'
 function checkGender(gender?: string): gender is GenderType {
     return gender === 'M' || gender === 'F' || gender === 'O'
 }
 /** 회원가입 컨트롤러 */
-export const signupUser = async (req: Request, res: Response) => {
-    const dto: RegistUserRequestDTO = req.body
+export const register = async (req: Request, res: Response) => {
+    const dto: RegisterUserRequestDTO = req.body
     const { name, email, password, birth, address, gender } = dto
 
     if (!name) throw new Error('name empty')
@@ -21,7 +21,7 @@ export const signupUser = async (req: Request, res: Response) => {
     if (!address) throw new Error('address empty')
     if (!checkGender(gender)) throw new Error('gender error')
 
-    const validated: RegistUser = {
+    const validated: RegisterUser = {
         ...dto,
         address,
         birth,
@@ -31,11 +31,11 @@ export const signupUser = async (req: Request, res: Response) => {
         password,
     }
 
-    const user = await registUser(validated)
+    const user = await userService.registUser(validated)
 
-    res.status(201).json({
+    const response: RegisterUserResponseDTO = {
         success: true,
-        message: '회원가입이 완료되었습니다.',
-        data: user,
-    })
+    }
+
+    res.send(response)
 }
