@@ -5,8 +5,6 @@ import {
     CreateBookRequestDTO,
     CreateBookResponseDTO,
     DeleteBookResponseDTO,
-    UpdateBookRequestDTO,
-    UpdateBookResponseDTO,
 } from '../dto/bookDTO'
 import bookService, { getBookList } from '../service/bookService'
 
@@ -36,21 +34,7 @@ export const deleteBook = async (req: Request, res: Response) => {
     const { bookId } = req.params
     await bookService.deleteBook({ bookId: +bookId })
     const response: DeleteBookResponseDTO = {
-        bookId: +bookId,
+        booId: +bookId,
     }
-    res.json(response)
-}
-
-export const updateBook = async (req: Request, res: Response) => {
-    const { bookId } = req.params
-    const { title, description }: UpdateBookRequestDTO = req.body ?? {}
-
-    await bookService.updateBook({
-        bookId: +bookId,
-        title,
-        description,
-    })
-
-    const response: UpdateBookResponseDTO = { bookId: +bookId }
     res.json(response)
 }

@@ -16,15 +16,3 @@ export type CreateBook = Pick<Book, 'title' | 'description' | 'userId'>
 export type DeleteBook = {
     bookId: number
 }
-
-export type UpdateBook = {
-    bookId: number
-    title?: string
-    description?: string
-}
-
-export type UpdateBook = {
-    bookId: number
-    title?: string
-    description?: string
-}
