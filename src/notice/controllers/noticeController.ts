@@ -29,8 +29,8 @@ export const getNotice: RequestHandler = async (req, res, next) => {
 
 /** 공지 생성 */
 export const createNotice: RequestHandler = async (req, res, next) => {
-    const { title, content } = req.body
-    if (!title || !content) {
+    const { notice_title, notice_content } = req.body
+    if (!notice_title || !notice_content) {
         res.status(400).json({ error: 'Title and content required' })
         return
     }
@@ -45,8 +45,8 @@ export const createNotice: RequestHandler = async (req, res, next) => {
 /** 공지 수정 */
 export const updateNotice: RequestHandler = async (req, res, next) => {
     const id = Number(req.params.id)
-    const { title, content } = req.body
-    if (!title || !content) {
+    const { notice_title, notice_content } = req.body
+    if (!notice_title || !notice_content) {
         res.status(400).json({ error: 'Title and content required' })
         return
     }

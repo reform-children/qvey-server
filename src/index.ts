@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import 'dotenv/config'
 import express from 'express'
 import noticeRouter from './notice/routes/noticeRouter'
 import userRouter from './user/routes/userRoute'
