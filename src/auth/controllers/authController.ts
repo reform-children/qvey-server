@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { LoginRequestDTO, LoginResponseDTO } from '../dto/loginDTO'
 import authService from '../services/authService'
+import { LoginRequestDTO, LoginResponseDTO } from '../dto/loginDto'
 
 /**
  * POST /api/v1/auth/login

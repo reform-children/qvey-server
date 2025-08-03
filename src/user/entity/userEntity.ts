@@ -1,5 +1,4 @@
-import { UserStatus } from '../model/userModel'
-import { GenderType } from '../type/user'
+import { GenderType, UserStatus } from '../model/userModel'
 
 export interface UserEntity {
     /**
