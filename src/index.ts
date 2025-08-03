@@ -6,8 +6,9 @@ import bookRouter from './book/router/bookRouter'
 import authRouter from './auth/routes/authRouter'
 import boardRouter from './board/router/boardRouter'
 import { verifyToken } from './auth/middleware/authMiddleware'
-import cors from 'cors';
-import questionRoutes from "./question/routes/questionRoutes"
+import cors from 'cors'
+import questionRoutes from './question/routes/questionRoutes'
+import { errorHandler } from './etc/middleware/errorHandler'
 
 dotenv.config()
 const app = express()
@@ -18,15 +19,15 @@ app.use(express.json())
 const PORT = 3000
 
 app.use(
-  cors({
-    origin: 'http://localhost:5173', // 프론트엔드 주소
-    credentials: true,                // 쿠키/인증 필요 시
-  })
-);
+    cors({
+        origin: 'http://localhost:5173', // 프론트엔드 주소
+        credentials: true, // 쿠키/인증 필요 시
+    })
+)
 
 app.use('/api/v1/notice', noticeRouter)
 app.use('/api/v1/book', bookRouter)
-app.use("/api/v1/question", questionRoutes);
+app.use('/api/v1/question', questionRoutes)
 app.use('/api/v1/user', userRouter)
 // Auth API
 app.use('/api/v1/auth', authRouter)
@@ -35,6 +36,8 @@ app.use('/api/v1/board', boardRouter)
 app.get('/', (req, res) => {
     res.send({ message: 'hello world' })
 })
+
+app.use(errorHandler)
 
 app.listen(PORT, () => {
     console.log(`[LOG] Server Open ${PORT} `)
