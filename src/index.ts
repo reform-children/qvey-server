@@ -2,26 +2,25 @@ import dotenv from 'dotenv'
 import express from 'express'
 import noticeRouter from './notice/routes/noticeRouter'
 import userRouter from './user/routes/userRoute'
-// import bookRouter from './book/router/bookRouter'
 import authRouter from './auth/routes/authRouter'
 import boardRouter from './board/router/boardRouter'
-import { verifyToken } from './auth/middleware/authMiddleware'
 import cors from 'cors'
 import questionRoutes from './question/routes/questionRoutes'
 import { errorHandler } from './etc/middleware/errorHandler'
+import path from 'path'
 
-dotenv.config()
+const profile = process.env.PROFILE
+dotenv.config({ path: path.join(__dirname, '../', 'env', `.env.${profile}`) })
+
 const app = express()
 
-// 클라이언트가 보낸 JSON 데이터를 자동으로 파싱해서 req.body에 넣어줌
 app.use(express.json())
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 app.use(
     cors({
-        origin: 'http://localhost:5173', // 프론트엔드 주소
-        credentials: true, // 쿠키/인증 필요 시
+        origin: 'http://localhost:5173',
     })
 )
 
@@ -34,11 +33,12 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/board', boardRouter)
 
 app.get('/', (req, res) => {
-    res.send({ message: 'hello world' })
+    res.send({ message: `Qvey API Server Profile ${process.env.DESCRIPTION}` })
 })
 
 app.use(errorHandler)
 
 app.listen(PORT, () => {
-    console.log(`[LOG] Server Open ${PORT} `)
+    const msg = `[LOG] Server Open ${PORT}! PROFILE -> ${profile}`
+    console.log(msg)
 })
