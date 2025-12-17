@@ -12,7 +12,7 @@ export async function login(req: Request, res: Response) {
     if (!email || !password) {
         throw new Error('이메일과 비밀번호를 모두 입력하세요.')
     }
-    const { accessToken } = await authService.authenticate(email, password)
+    const accessToken = await authService.authenticate(email, password)
     const response: LoginResponseDTO = { accessToken }
     res.json(response)
 }
