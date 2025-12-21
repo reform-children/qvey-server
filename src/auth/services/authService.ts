@@ -15,7 +15,6 @@ export const authenticate = async (email: string, password: string): Promise<str
         throw new Error('비밀번호가 일치 하지 않습니다.')
     }
     const accessToken = createToken(user)
-    console.log(4)
     return accessToken
 }
 

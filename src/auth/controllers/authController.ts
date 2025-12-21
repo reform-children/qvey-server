@@ -12,7 +12,13 @@ export async function login(req: Request, res: Response) {
     if (!email || !password) {
         throw new Error('이메일과 비밀번호를 모두 입력하세요.')
     }
-    const accessToken = await authService.authenticate(email, password)
-    const response: LoginResponseDTO = { accessToken }
-    res.json(response)
+
+    try {
+        const accessToken = await authService.authenticate(email, password)
+        const response: LoginResponseDTO = { accessToken }
+        res.json(response)
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({ message: 'internal server error', error: true })
+    }
 }
