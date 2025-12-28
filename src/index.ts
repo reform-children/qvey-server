@@ -6,7 +6,7 @@ import authRouter from './auth/routes/authRouter'
 import boardRouter from './board/router/boardRouter'
 import cors from 'cors'
 import questionRoutes from './question/routes/questionRoutes'
-import { errorHandler } from './etc/middleware/errorHandler'
+import { errorHandler } from './core/middleware/errorHandler'
 import path from 'path'
 
 const profile = process.env.PROFILE
