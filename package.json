@@ -6,7 +6,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "tsc",
         "bulid:watch": "tsc -W",
-        "start": "npm run build && PROFILE=local node dist/index.js",
+        "start": "npm run build && cross-env PROFILE=local node dist/index.js",
         "start-dev": "npm run build && PROFILE=dev node dist/index.js",
         "start:watch": "nodemon dist/index.js",
         "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
@@ -30,6 +30,7 @@
         "@types/ms": "^2.1.0",
         "@types/node": "^24.0.12",
         "@types/pg": "^8.15.4",
+        "cross-env": "^10.1.0",
         "dotenv": "^17.2.3",
         "nodemon": "^3.1.10",
         "ts-node": "^10.9.2",
